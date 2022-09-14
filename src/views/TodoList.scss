@@ -1,0 +1,11 @@
+.todo-container {
+  padding: 10px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .btn-add-new {
+    width: 150px;
+  }
+}

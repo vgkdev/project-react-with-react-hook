@@ -6,21 +6,15 @@ import "./NavigationBar.scss";
 const NavigationBar = () => {
   return (
     <div className="top-nav">
-      <NavLink activeClassName="active" to="/" exact>
+      <NavLink to="/" exact="true">
         Home
       </NavLink>
 
-      <NavLink activeClassName="active" to="/todo-app">
-        Todo App
-      </NavLink>
+      <NavLink to="/todo-app">Todo App</NavLink>
 
-      <NavLink activeClassName="active" to="/blog">
-        Blog App
-      </NavLink>
+      <NavLink to="/news-app">News App</NavLink>
 
-      <NavLink activeClassName="active" to="/covid-app">
-        Covid App
-      </NavLink>
+      <NavLink to="/blogs-app">Blog App</NavLink>
     </div>
   );
 };

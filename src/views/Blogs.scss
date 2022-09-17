@@ -1,0 +1,49 @@
+.container {
+  padding: 10px;
+
+  .btn-add-new {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+  }
+
+  h2 {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .container-card {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 10px;
+
+    .card {
+      width: 100%;
+      max-width: 350px;
+      height: 300px;
+      object-fit: cover;
+
+      .card-title {
+        font-size: larger;
+        font-weight: bold;
+      }
+
+      .card-text {
+        font-size: 14px;
+      }
+
+      .btn-link {
+        color: black;
+        text-decoration: none;
+      }
+    }
+  }
+}

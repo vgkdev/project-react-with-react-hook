@@ -1,0 +1,36 @@
+.add-new-container {
+  padding: 0 10px;
+
+  .input-container {
+    margin: 20px 10px;
+    display: flex;
+    flex-direction: column;
+
+    .input {
+      border-radius: 7px;
+      margin-top: 10px;
+      padding: 10px;
+    }
+
+    .input-content {
+      height: 100px;
+    }
+  }
+
+  .btn-container {
+    // border: 1px solid red;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+
+    button {
+      width: 70px;
+      height: 40px;
+      border-radius: 7px;
+      background-color: #0b5ed7;
+      color: white;
+      border: white;
+    }
+  }
+}

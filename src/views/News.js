@@ -50,7 +50,7 @@ const News = () => {
   };
 
   return (
-    <div className="container">
+    <div className="news-container">
       <h2>News app page</h2>
       <br />
 

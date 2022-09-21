@@ -53,6 +53,12 @@ const Blogs = () => {
     setData(tempData);
   };
 
+  const deletePost = (id) => {
+    let tempData = data;
+    tempData = tempData.filter((item) => item.id !== id);
+    setData(tempData);
+  };
+
   return (
     <div className="blogs-container">
       <h2>Blogs Page</h2>
@@ -85,7 +91,14 @@ const Blogs = () => {
                 <Card.Body>
                   <Card.Title className="card-title">{item.title}</Card.Title>
                   <Card.Text className="card-text">{item.body}</Card.Text>
-                  <Card.Text></Card.Text>
+
+                  <Button
+                    style={{ marginTop: "10px" }}
+                    onClick={() => deletePost(item.id)}
+                    variant="danger"
+                  >
+                    Delete
+                  </Button>
                 </Card.Body>
               </Card>
             );

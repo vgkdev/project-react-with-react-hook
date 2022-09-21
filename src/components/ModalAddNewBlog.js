@@ -20,7 +20,7 @@ const ModalAddNewBlog = (props) => {
     let data = {
       title: title,
       body: content,
-      userId: 1,
+      userId: 2,
     };
 
     try {

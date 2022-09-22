@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
+import ModalAddNewTodo from "../components/ModalAddNewTodo";
 
 import "./TodoList.scss";
 
 let idList = 0;
+let idEdit = 0;
 
 const TodoList = () => {
   const [list, setList] = useState([]);
@@ -15,8 +16,16 @@ const TodoList = () => {
   const [date, setDate] = useState("");
 
   const [show, setShow] = useState(false);
+  const [showModalEdit, setShowModalEdit] = useState(false);
+
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleCloseEdit = () => setShowModalEdit(false);
+  const handleShow = () => {
+    setTodo("");
+    setTime("");
+    setDate("");
+    setShow(true);
+  };
 
   const handleOnChangeTodo = (event) => {
     //console.log("check state todo", event.target.value);
@@ -45,14 +54,47 @@ const TodoList = () => {
       time: time,
       date: date,
     };
-    console.log("check newTodo: ", newTodo);
+    //console.log("check newTodo: ", newTodo);
     idList++;
     setList([...list, newTodo]);
-    console.log("check list: ", list);
+    //console.log("check list: ", list);
     setTodo("");
     setTime("");
     setDate("");
     setShow(false);
+  };
+
+  const handleEditTodo = () => {
+    if (!todo || !time || !date) {
+      alert("missing parameter");
+      return;
+    }
+
+    let tempList = list;
+    tempList[idEdit].todo = todo;
+    tempList[idEdit].time = time;
+    tempList[idEdit].date = date;
+
+    setList(tempList);
+    setTodo("");
+    setTime("");
+    setDate("");
+    setShowModalEdit(false);
+  };
+
+  const deleteTodo = (id) => {
+    let tempList = list;
+    tempList = tempList.filter((item) => item.id !== id);
+    setList(tempList);
+  };
+
+  const handleOnClickEditTodo = (item) => {
+    setTodo(item.todo);
+    setTime(item.time);
+    setDate(item.date);
+    idEdit = item.id;
+    //console.log("check item: ", list[idEdit]);
+    setShowModalEdit(true);
   };
 
   return (
@@ -64,6 +106,7 @@ const TodoList = () => {
             <th>Todo</th>
             <th>Time</th>
             <th>Date</th>
+            <th>Option</th>
           </tr>
         </thead>
         <tbody>
@@ -75,12 +118,28 @@ const TodoList = () => {
                   <td>{item.todo}</td>
                   <td>{item.time}</td>
                   <td>{item.date}</td>
+                  <td>
+                    <Button
+                      style={{ marginRight: "10px" }}
+                      variant="danger"
+                      onClick={() => deleteTodo(item.id)}
+                    >
+                      Delete
+                    </Button>
+
+                    <Button
+                      variant="warning"
+                      onClick={() => handleOnClickEditTodo(item)}
+                    >
+                      Edit
+                    </Button>
+                  </td>
                 </tr>
               );
             })}
           {list.length === 0 && (
             <tr>
-              <td colSpan={4}></td>
+              <td colSpan={5}></td>
             </tr>
           )}
         </tbody>
@@ -96,7 +155,7 @@ const TodoList = () => {
         </Modal.Header>
 
         <Modal.Body>
-          <Form>
+          {/* <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Todo</Form.Label>
               <Form.Control
@@ -126,7 +185,15 @@ const TodoList = () => {
                 value={date}
               />
             </Form.Group>
-          </Form>
+          </Form> */}
+          <ModalAddNewTodo
+            handleOnChangeTodo={handleOnChangeTodo}
+            handleOnChangeTime={handleOnChangeTime}
+            handleOnChangeDate={handleOnChangeDate}
+            date={date}
+            time={time}
+            todo={todo}
+          />
         </Modal.Body>
 
         <Modal.Footer>
@@ -136,9 +203,39 @@ const TodoList = () => {
           <Button
             style={{ width: "100px" }}
             variant="primary"
-            onClick={(event) => handleAddNewTodo(event)}
+            onClick={handleAddNewTodo}
           >
             Add
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showModalEdit} onHide={handleCloseEdit}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Todo</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <ModalAddNewTodo
+            handleOnChangeTodo={handleOnChangeTodo}
+            handleOnChangeTime={handleOnChangeTime}
+            handleOnChangeDate={handleOnChangeDate}
+            date={date}
+            time={time}
+            todo={todo}
+          />
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseEdit}>
+            Close
+          </Button>
+          <Button
+            style={{ width: "100px" }}
+            variant="primary"
+            onClick={handleEditTodo}
+          >
+            Save
           </Button>
         </Modal.Footer>
       </Modal>

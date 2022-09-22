@@ -32,7 +32,7 @@ const ModalAddNewBlog = (props) => {
       if (response && response.data) {
         let newBlog = response.data;
         props.handleAddNewBlog(newBlog);
-        console.log("check new blog: ", newBlog);
+        //console.log("check new blog: ", newBlog);
       }
     } catch (err) {
       console.log(err);
